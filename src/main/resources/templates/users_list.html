@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: html_head" />
+</head>
+<body>
+	<div class="container">
+		<br /> <br />
+		<section
+			class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
+			<div class="container">
+				<div class="row justify-content-center">
+					<div class="card col-md-24 justify-content-center">
+						<div class="card-body">
+							<h5 class="card-title">Roles Privileges For Users</h5>
+
+							<div>
+
+								<a th:href="@{/users/ShowFormUsers}" class="btn btn-primary"
+									role="button">Create New Users</a>
+							</div>
+							<br />
+							<form th:action="@{/users/list}">
+								<div class="form-group has-search">
+									<span class="fa fa-search form-control-feedback"></span> <input
+										type="text" class="form-control" placeholder="Search"
+										name="username" th:value="${username}">
+								</div>
+							</form>
+							<table class="table table-striped table-responsive-md">
+								<thead>
+									<tr>
+										<th>User Id</th>
+										<th>Full Name</th>
+										<th>UserName</th>
+										<th>Email</th>
+										<th>State Of User</th>
+										<th>Roles</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="users : ${listUsers}">
+										<td th:text="${users.id}"></td>
+										<td th:text="${users.fullName}"></td>
+										<td th:text="${users.username}"></td>
+										<td th:text="${users.email}"></td>
+										<td th:text="${users.enabled}"></td>
+										<td th:text="${users.roles}"></td>
+										<td><a
+											th:href="@{/users/ShowFormUsersUpdate/{id}(id=${users.id})}"
+											class="btn btn-primary btn-sm" role="button">Edit</a> <a
+											th:href="@{/users/DeleteUsers/{id}(id=${users.id})}"
+											class="btn btn-danger btn-sm" role="button">Delete</a></td>
+									</tr>
+								</tbody>
+							</table>
+							<a class="btn btn-cancel" th:href="@{/index}"
+								role="button">Cancel</a>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+	<div th:insert="fragments :: footer"></div>
+</body>
+</html>

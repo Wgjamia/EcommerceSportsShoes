@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: html_head" />
+<body>
+	<div class="container">
+		<div class="container">
+			<br /> <br />
+			<section
+				class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
+				<div class="container">
+					<div class="row justify-content-center">
+						<div class="card col-md-6 justify-content-center">
+							<div class="card-body">
+								<h5 class="card-title">New Roles</h5>
+								<form action="#" th:action="@{/roles/AddRoles}"
+									th:object="${roles}" method="POST">
+
+									<input type="text" th:field="*{name}" placeholder="Role Name"
+										class="form-control mb-4 col-4"> <br />
+									<button type="submit" class="btn btn-primary col-4">Save
+										Role</button>
+									<a class="btn btn-primary m-2" th:href="@{/roles/list}"
+										role="button">Cancel</a>
+
+								</form>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</div>
+	</div>
+	<div th:insert="fragments :: footer"></div>
+</body>
+</html>
