@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: html_head" />
+<body>
+<div th:replace="fragments :: menu" ></div>
+	<div class="container">
+		<div class="container">
+			<br /> <br />
+			<section
+				class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
+				<div class="container">
+					<div class="row justify-content-center">
+						<div class="card col-md-6 justify-content-center">
+							<div class="card-body">
+								<h5 class="card-title">Edit Size of Shoe</h5>
+								<form action="#" th:action="@{/admin/sizeshoe/AddSizeShoe}"
+									th:object="${sizeShoe}" method="POST">
+									<input type="hidden" th:field="*{id}"><br/>
+									<input type="text" th:field="*{sizeName}" placeholder="Size Name"
+										class="form-control mb-4 col-4"> <br />
+									<button type="submit" class="btn btn-primary col-4">Update</button>
+									<a class="btn btn-primary m-2" th:href="@{/admin/sizeshoe/list}"
+										role="button">Cancel</a>
+
+								</form>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</div>
+	</div>
+	<div th:insert="fragments :: footer"></div>
+</body>
+</html>

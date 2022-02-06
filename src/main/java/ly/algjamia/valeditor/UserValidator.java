@@ -9,10 +9,6 @@ import org.springframework.validation.Validator;
 import ly.algjamia.model.Users;
 import ly.algjamia.services.UserService;
 
-
-
-
-
 @Component
 public class UserValidator implements Validator {
 	@Autowired

@@ -1,8 +1,6 @@
 package ly.algjamia.controllers;
 
 
-
-import java.sql.Time;
 import java.util.Date;
 import java.util.List;
 
@@ -25,6 +23,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 
 import ly.algjamia.model.Roles;
 import ly.algjamia.model.SessionHistory;
+
 import ly.algjamia.model.Users;
 import ly.algjamia.services.SessionHistoryService;
 import ly.algjamia.services.UserService;
@@ -38,6 +37,8 @@ public class UserController {
 
 	@Autowired
 	private UserValidator userValidator;
+	
+
 	
 	@Autowired
 	private SessionHistoryService sessionHistoryService;
@@ -87,6 +88,8 @@ public class UserController {
 
 	@RequestMapping(value = { "/", "/index" }, method = RequestMethod.GET)
 	public String welcome(Model model,HttpSession session,HttpServletRequest request) {
+		Users users = new Users();
+		session.setAttribute("users", users);
 		SessionHistory sessionHistory = new SessionHistory();
 		sessionHistory.setSessionId(session.getId());
 		sessionHistory.setDateOfLogin(new Date());
@@ -97,7 +100,7 @@ public class UserController {
 		String UserName = request.getUserPrincipal().getName();
 		sessionHistory.setUsers(userService.findByUsername(UserName));
 		sessionHistoryService.save(sessionHistory);
-		return "index";
+		return "redirect:/users/products/list";
 	}
 	
 	

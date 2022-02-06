@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: html_head" />
+<body>
+<div th:replace="fragments :: menu" ></div>
+	<div class="container">
+		<div class="container">
+			<br /> <br />
+			<section
+				class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
+				<div class="container">
+					<div class="row justify-content-center">
+						<div class="card col-md-12 justify-content-center">
+							<div class="card-body">
+								<h5 class="card-title">Edit Product</h5>
+								<form th:action="@{/admin/products/AddProduct}"
+									th:object="${product}" method="POST" 
+									enctype="multipart/form-data">
+									<div class="row mb-4">
+										<label for="price" class="col-sm-2 col-form-label">Product Name</label>
+									  		<div class="col-sm-10">
+									  			<input type="hidden" th:field="*{pid}" class="form-control">
+												<input type="text" th:field="*{pname}" class="form-control">
+											</div>
+									</div>
+									<div class="row mb-4">
+										<label for="price" class="col-sm-2 col-form-label">Product Description</label>
+									  		<div class="col-sm-10">
+												<input type="text" th:field="*{pDesc}" class="form-control">
+											</div>
+									</div>
+									<div class="row mb-4">
+										<label for="price" class="col-sm-2 col-form-label">Product Price</label>
+											<div class="col-sm-10">
+												<input type="number" step="0.1" th:field="*{price}" placeholder="0.0"
+													class="form-control">
+											</div>
+										</div>
+									<div class="row mb-4">
+										<label for="quantity" class="col-sm-2 col-form-label">Product Quantity</label>
+											<div class="col-sm-10">
+												<input type="number" step="0" th:field="*{quantity}" class="form-control">
+											</div>
+										</div>
+									<div class="row mb-4">
+										<label for="inputNumber" class="col-sm-2 col-form-label">Category</label>
+										<div class="col-sm-10">
+											<select th:field="*{category}" class="form-select" required>
+												<th:block th:each="category : ${listCategory}" placeholder="Category">
+													<option th:text="${category.categoryName}" th:value="${category.id}"/>
+												</th:block>
+											</select>
+										</div>	
+									</div>
+										<div class="row mb-4">
+										<label for="sizeshoe" class="col-sm-2 col-form-label">Size</label>
+										<div class="col-sm-10">
+											<select th:field="*{sizeShon}" class="form-select" required>
+												<th:block th:each="sizeshoe : ${listSizeShoes}" >
+													<option th:text="${sizeshoe.sizeName}" th:value="${sizeshoe.id}"/>
+												</th:block>
+											</select>
+										</div>	
+									</div>
+									<div class="row mb-4">
+                 			   		 <label for="image" class="col-sm-2 col-form-label">Image Upload</label>
+               			 			   	<div class="col-sm-10">
+                    						<input class="form-control" type="file" name="fileImage" id="fileImage"  accept="image/png, image/jpeg">
+                    						<br />
+                    						<p>
+                    							<img class="rounded mx-auto d-block" id="show_image" th:src="*{getLogoImageOfProduct}" style="width:25%">
+                    						</p>	
+                  						</div>
+                					</div>
+              						<br/>
+              						
+                													
+									<button type="submit" class="btn btn-primary col-4">Update</button>
+									<a class="btn btn-primary m-2" th:href="@{/admin/products/list}"
+										role="button">Cancel</a>
+
+								</form>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</div>
+	</div>
+	<div th:insert="fragments :: footer"></div>
+	<div th:insert="fragments :: script"></div>
+	 <script type="text/javascript">
+		$(document).ready(function(){
+			$('#fileImage').change(function(){
+				ShowImageProducts(this);
+			});
+			
+		});
+		function ShowImageProducts(fileInput){
+			file = fileInput.files[0];
+			reader = new FileReader();
+			reader.onload = function(e){
+				$('#show_image').attr('src',e.target.result);
+			};
+			reader.readAsDataURL(file);
+			
+		};
+	</script> 
+</body>
+</html>

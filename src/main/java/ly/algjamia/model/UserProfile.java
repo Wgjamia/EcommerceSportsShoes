@@ -12,6 +12,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "user_profiles")
@@ -21,9 +22,9 @@ public class UserProfile {
 	private Long id;
 	@Column(name = "phone_number")
 	private String phoneNumber;
-	@Temporal(TemporalType.DATE)
+	
 	@Column(name = "dob")
-	private Date dateOfBirth;
+	private String dateOfBirth;
 	private String job;
 	private String address;
 	private String street;
@@ -34,15 +35,15 @@ public class UserProfile {
 	private String zipCode;
 	private String pathOfPhoto;
 	@Column(name = "twitter_profile")
-	private String twitterProfile = "";
+	private String twitterProfile;
 	@Column(name = "facebook_profile")
-	private String facebookProfile = "";
+	private String facebookProfile;
 	@Column(name = "instagram_profile")
-	private String instagramProfile = "";
+	private String instagramProfile;
 	@Column(name = "linkedin_profile")
-	private String linkedinProfile = "";
+	private String linkedinProfile;
 
-	@OneToOne(fetch = FetchType.LAZY, optional = false)
+	@OneToOne(fetch = FetchType.EAGER, optional = false)
 	@JoinColumn(name = "user_id", nullable = false)
 	private Users users;
 
@@ -50,7 +51,7 @@ public class UserProfile {
 
 	}
 
-	public UserProfile(String phoneNumber, Date dateOfBirth, String job, String address, String street, String city,
+	public UserProfile(String phoneNumber, String dateOfBirth, String job, String address, String street, String city,
 			String state, String country, String zipCode, String pathOfPhoto) {
 		this.phoneNumber = phoneNumber;
 		this.dateOfBirth = dateOfBirth;
@@ -120,11 +121,11 @@ public class UserProfile {
 		this.phoneNumber = phoneNumber;
 	}
 
-	public Date getDateOfBirth() {
+	public String getDateOfBirth() {
 		return dateOfBirth;
 	}
 
-	public void setDateOfBirth(Date dateOfBirth) {
+	public void setDateOfBirth(String dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
 
@@ -190,6 +191,15 @@ public class UserProfile {
 
 	public void setPathOfPhoto(String pathOfPhoto) {
 		this.pathOfPhoto = pathOfPhoto;
+	}
+	
+	@Transient
+	public String getLogoImageOfProfile() {
+		if ( this.pathOfPhoto == null ) {
+			return "java.jpg";
+		}else
+			return "/profiles_images/"+id+ "/"+this.pathOfPhoto;
+		
 	}
 
 }

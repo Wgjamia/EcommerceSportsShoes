@@ -1,5 +1,7 @@
 package ly.algjamia.services;
 
+import org.springframework.data.repository.query.Param;
+
 import ly.algjamia.model.UserProfile;
 import ly.algjamia.model.Users;
 import ly.algjamia.model.UsersSetting;
@@ -17,5 +19,8 @@ public interface UserProfileService {
 	public UsersSetting getUserSetting(Long user_id);
 	
 	public void addUserSetting(UsersSetting userSetting);
+	
+
+
 
 }

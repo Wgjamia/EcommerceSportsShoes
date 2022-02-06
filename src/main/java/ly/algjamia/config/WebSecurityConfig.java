@@ -46,9 +46,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				// URLs matching for access rights
 				.antMatchers("/").permitAll()
 				.antMatchers("/assets/**").permitAll()
+				.antMatchers("/product_images/**").permitAll()
+				.antMatchers("/profiles_images/**").permitAll()
 				.antMatchers("/login").permitAll()
 				.antMatchers("/registration").permitAll()
 				.antMatchers("/index/**").hasAnyAuthority("SUPER_USER", "ADMIN_USER", "SITE_USER")
+				.antMatchers("/admin/**").hasAnyAuthority("SUPER_USER", "ADMIN_USER", "SITE_USER")
 				.antMatchers("/users/**").hasAnyAuthority("SUPER_USER","ADMIN_USER")
 				.anyRequest().authenticated()
 				.and()

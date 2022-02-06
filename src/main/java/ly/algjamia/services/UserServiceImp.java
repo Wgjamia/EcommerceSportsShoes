@@ -7,6 +7,7 @@ import ly.algjamia.model.Roles;
 import ly.algjamia.model.Users;
 import ly.algjamia.repository.RolesRepository;
 import ly.algjamia.repository.UserRepository;
+
 import java.util.List;
 
 @Service
@@ -18,6 +19,7 @@ public class UserServiceImp implements UserService {
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 
+	
 	@Override
 	public void save(Users users) {
 		users.setPassword(bCryptPasswordEncoder.encode(users.getPassword()));
@@ -76,5 +78,16 @@ public class UserServiceImp implements UserService {
 	public void delete(Long id) {
 		userRepository.deleteById(id);
 
+	}
+	
+	@Override
+	public void UdateUsersFullNameAndEmail(String fullNmae, String email, Long id) {
+		userRepository.UdateUsersFullNameAndEmail(fullNmae, email, id);
+		
+	}
+
+	@Override
+	public void UdatePasswordOfUserById(String pass, Long id) {
+	  userRepository.UdatePasswordOfUserById(bCryptPasswordEncoder.encode(pass), id);
 	}
 }

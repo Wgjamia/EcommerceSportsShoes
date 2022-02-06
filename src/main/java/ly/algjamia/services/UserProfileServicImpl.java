@@ -35,8 +35,7 @@ public class UserProfileServicImpl implements UserProfileService {
 
 	@Override
 	public void addUserProfile(UserProfile userProfile) {
-		userProfileRepository.save(userProfile);
-		
+			userProfileRepository.save(userProfile);
 	}
 
 	@Override
@@ -56,4 +55,7 @@ public class UserProfileServicImpl implements UserProfileService {
 		
 	}
 
+	
+
+	
 }

@@ -23,7 +23,7 @@
           <div class="card">
             <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
 		
-              <img th:src="${userProfile.pathOfPhoto}" alt="Profile" class="rounded-circle">
+              <img th:src="@{${userProfile.getLogoImageOfProfile}}" alt="Profile" class="rounded-circle">
               <h2><span  th:text="${users.fullName}"></span></h2>
               
               <h3><span th:text="${userProfile.job}"></span></h3>
@@ -104,15 +104,15 @@
                 
 					 <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
                   <!-- Profile Edit Form -->
-                  <form  method="post" th:action="@{/userProfile/ShowProfile}" >
+                  <form  method="post" th:action="@{/userProfile/updateUserProfile}" enctype="multipart/form-data">
                  
                     <div class="row mb-3">
                       <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Profile Image</label>
                       <div class="col-md-8 col-lg-9">
-                         <img th:src="${userProfile.pathOfPhoto}" alt="Profile"> 
+                         <img  alt="Profile" id="show_image_profile"  style="width:25%"> 
                         <div class="pt-2">
-                          <a href="" class="btn btn-primary btn-sm" title="Upload new profile image"><i class="bi bi-upload"></i></a>
-                          <a href="" class="btn btn-danger btn-sm" title="Remove my profile image"><i class="bi bi-trash"></i></a>
+                          <input type="file" name="profileimage" id="profileimage"  class="btn btn-primary btn-sm" 
+                          		accept="image/png, image/jpeg" >
                         </div>
                       </div>
                     </div>
@@ -120,98 +120,99 @@
                     <div class="row mb-3">
                       <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Full Name</label>
                       <div class="col-md-8 col-lg-9">
-                      	<input type="hidden" th:field="${users.id}" />
-                        <input  type="text" class="form-control" id="fullName" th:field="${users.fullName}"/>
+                      	<input type="hidden" id="id" name="id" th:field="${userProfile.id}" />
+                      	<input type="hidden" id="id" name="id" th:field="${users.id}" />
+                        <input  type="text" class="form-control" id="fullName" name="fullName" th:field="${users.fullName}"/>
                       </div>
                     </div>
                     <div class="row mb-3">
                       <label for="Job" class="col-md-4 col-lg-3 col-form-label">Job</label>
                       <div class="col-md-8 col-lg-9">
-                        <input type="text" class="form-control" id="Job"  th:field="${userProfile.job}"/>
+                        <input type="text" class="form-control" id="job" name="job" th:field="${userProfile.job}"/>
                       </div>
                     </div>
  					<div class="row mb-3">
                  		<label for="inputDate" class="col-md-4 col-lg-3 col-form-label">Date</label>
                   			<div class="col-md-8 col-lg-9">
-                    			<input type="date" class="form-control" th:field="${userProfile.dateOfBirth}">
+                    			<input type="date" class="form-control" id="dateOfBirth" name="dateOfBirth" th:field="${userProfile.dateOfBirth}">
                   			</div>
                 	</div>
                     <div class="row mb-3">
                       <label for="Address" class="col-md-4 col-lg-3 col-form-label">Address</label>
                       <div class="col-md-8 col-lg-9">
-                        <input type="text" class="form-control" id="Address"  th:field="${userProfile.address}"/>
+                        <input type="text" class="form-control" id="address" name="address" th:field="${userProfile.address}"/>
                       </div>
                     </div>
                     <div class="row mb-3">
                       <label for="Street" class="col-md-4 col-lg-3 col-form-label">Street</label>
                       <div class="col-md-8 col-lg-9">
-                        <input type="text" class="form-control" id="Street"  th:field="${userProfile.street}"/>
+                        <input type="text" class="form-control" id="street" name="street" th:field="${userProfile.street}"/>
                       </div>
                     </div>
                     <div class="row mb-3">
                       <label for="City" class="col-md-4 col-lg-3 col-form-label">City</label>
                       <div class="col-md-8 col-lg-9">
-                        <input type="text" class="form-control" id="city"  th:field="${userProfile.city}"/>
+                        <input type="text" class="form-control" id="city" name="city" th:field="${userProfile.city}"/>
                       </div>
                     </div>
                     <div class="row mb-3">
                       <label for="State" class="col-md-4 col-lg-3 col-form-label">State</label>
                       <div class="col-md-8 col-lg-9">
-                        <input type="text" class="form-control" id="State"  th:field="${userProfile.state}"/>
+                        <input type="text" class="form-control" id="state" name="state" th:field="${userProfile.state}"/>
                       </div>
                     </div>
                     <div class="row mb-3">
                       <label for="Country" class="col-md-4 col-lg-3 col-form-label">Country</label>
                       <div class="col-md-8 col-lg-9">
-                        <input type="text" class="form-control" id="Country"  th:field="${userProfile.country}"/>
+                        <input type="text" class="form-control" id="country" name="country" th:field="${userProfile.country}"/>
                       </div>
                     </div>
                     <div class="row mb-3">
                       <label for="zipCode" class="col-md-4 col-lg-3 col-form-label">ZipCode</label>
                       <div class="col-md-8 col-lg-9">
-                        <input class="form-control" id="zipCode"  th:field="${userProfile.zipCode}"/>
+                        <input class="form-control" id="zipCode" name="zipCode" th:field="${userProfile.zipCode}"/>
                       </div>
                     </div>
 
                     <div class="row mb-3">
                       <label for="Phone" class="col-md-4 col-lg-3 col-form-label">Phone</label>
                       <div class="col-md-8 col-lg-9">
-                        <input type="text" class="form-control" id="Phone" th:field="${userProfile.phoneNumber}"/>
+                        <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" th:field="${userProfile.phoneNumber}"/>
                       </div>
                     </div>
 
                     <div class="row mb-3">
                       <label for="Email" class="col-md-4 col-lg-3 col-form-label">Email</label>
                       <div class="col-md-8 col-lg-9">
-                        <input type="email" class="form-control" id="Email" th:field="${users.email}"/>
+                        <input type="email" class="form-control" id="email" name="email" th:field="${users.email}"/>
                       </div>
                     </div>
 
                     <div class="row mb-3">
                       <label for="Twitter" class="col-md-4 col-lg-3 col-form-label">Twitter Profile</label>
                       <div class="col-md-8 col-lg-9">
-                        <input type="text" class="form-control" id="Twitter" th:field="${userProfile.twitterProfile}">
+                        <input type="text" class="form-control" id="twitterProfile" name="twitterProfile" th:field="${userProfile.twitterProfile}">
                       </div>
                     </div>
 
                     <div class="row mb-3">
                       <label for="Facebook" class="col-md-4 col-lg-3 col-form-label">Facebook Profile</label>
                       <div class="col-md-8 col-lg-9">
-                        <input type="text" class="form-control" id="Facebook" th:field="${userProfile.facebookProfile}">
+                        <input type="text" class="form-control" id="facebookProfile" name="facebookProfile" th:field="${userProfile.facebookProfile}">
                       </div>
                     </div>
 
                     <div class="row mb-3">
                       <label for="Instagram" class="col-md-4 col-lg-3 col-form-label">Instagram Profile</label>
                       <div class="col-md-8 col-lg-9">
-                        <input type="text" class="form-control" id="Instagram" th:field="${userProfile.instagramProfile}"/>
+                        <input type="text" class="form-control" id="instagramProfile" name="instagramProfile" th:field="${userProfile.instagramProfile}"/>
                       </div>
                     </div>
 
                     <div class="row mb-3">
                       <label for="Linkedin" class="col-md-4 col-lg-3 col-form-label">Linkedin Profile</label>
                       <div class="col-md-8 col-lg-9">
-                        <input type="text" class="form-control" id="Linkedin" th:field="${userProfile.linkedinProfile}"/>
+                        <input type="text" class="form-control" id="linkedinProfile" name="linkedinProfile" th:field="${userProfile.linkedinProfile}"/>
                       </div>
                     </div>
 
@@ -226,31 +227,34 @@
                 
 					<div class="tab-pane fade profile-settings pt-3" id="profile-settings">
                   <!-- Settings Form -->
-                  <form method="get" th:action="@{/userProfile/ShowSetting}">
+                   <form method="post" th:action="@{/userProfile/updateUserSetting}" enctype="multipart/form-data">
 					
                     <div class="row mb-3">
                       <label for="EmailNotifications" class="col-md-4 col-lg-3 col-form-label">Email Notifications</label>
                       <div class="col-md-8 col-lg-9">
                         <div class="form-check">
-                          <input class="form-check-input" type="checkbox" id="changesMade" th:field="${usersSetting.changesMade}" />
+                          <input type="hidden" id="id" name="id" th:field="${usersSetting.id}" />
+                      	  <input type="hidden" id="id" name="id" th:field="${users.id}" />
+                        
+                          <input class="form-check-input" type="checkbox" id="changesMade" name="changesMade" th:field="${usersSetting.changesMade}" />
                           <label class="form-check-label" for="changesMade">
                             Changes made to your account
                           </label>
                         </div>
                         <div class="form-check">
-                          <input class="form-check-input" type="checkbox" id="newProducts" th:field="${usersSetting.infoProducts}"/>
+                          <input class="form-check-input" type="checkbox" id="infoProducts" name="infoProducts" th:field="${usersSetting.infoProducts}"/>
                           <label class="form-check-label" for="newProducts">
                             Information on new products and services
                           </label>
                         </div>
                         <div class="form-check">
-                          <input class="form-check-input" type="checkbox" id="proOffers" th:field="${usersSetting.marketingOffers}">
+                          <input class="form-check-input" type="checkbox" id="marketingOffers" name="marketingOffers" th:field="${usersSetting.marketingOffers}">
                           <label class="form-check-label" for="proOffers">
                             Marketing and promo offers
                           </label>
                         </div>
                         <div class="form-check">
-                          <input class="form-check-input" type="checkbox" id="securityNotify" th:field="${usersSetting.securityAlerts}">
+                          <input class="form-check-input" type="checkbox" id="securityAlerts" name="securityAlerts" th:field="${usersSetting.securityAlerts}">
                           <label class="form-check-label" for="securityNotify">
                             Security alerts
                           </label>
@@ -261,43 +265,46 @@
                     <div class="text-center">
                       <button type="submit" class="btn btn-primary">Save Changes</button>
                     </div>
-                   </form><!-- End settings Form -->
+                    </form>
+                  <!--  End settings Form -->
                 </div>
                
                 
 
                 <div class="tab-pane fade profile-change-password pt-3" id="profile-change-password">
                   <!-- Change Password Form -->
-                  <form method="get" th:action="@{/userProfile/ShowChangePassword}">
+                   <form method="post" th:action="@{/userProfile/ChangePassword}" > 
 					
                     <div class="row mb-3">
                       <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Current Password</label>
                       <div class="col-md-8 col-lg-9">
                       	<input type="hidden" th:field="${users.id}" />
-                        <input type="password" class="form-control" id="currentPassword" th:field="${users.password}"/>
+                        <input type="password" class="form-control" id="currentPassword" name="currentPassword" />
                       </div>
                     </div>
 
                     <div class="row mb-3">
                       <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">New Password</label>
                       <div class="col-md-8 col-lg-9">
-                        <input type="password" class="form-control" id="newPassword" th:field="${users.password}">
+                        <input type="password" class="form-control" id="newPassword" name="newPassword" />
                       </div>
                     </div>
 
                     <div class="row mb-3">
                       <label for="renewPassword" class="col-md-4 col-lg-3 col-form-label">Re-enter New Password</label>
                       <div class="col-md-8 col-lg-9">
-                        <input type="password" class="form-control" id="renewPassword" th:field="${users.password}"/>
+                        <input type="password" class="form-control" id="renewPassword" name="renewPassword" />
                       </div>
                     </div>
 
                     <div class="text-center">
                       <button type="submit" class="btn btn-primary">Change Password</button>
                     </div>
-                  </form><!-- End Change Password Form -->
+                    </form>
+                <!--  > End Change Password Form -->
 
                 </div>
+                
 				
               </div><!-- End Bordered Tabs -->
 
@@ -313,6 +320,26 @@
 	
 	<div th:insert="fragments :: footer"></div>
 	<div th:insert="fragments :: script"></div>
+	<script type="text/javascript">
+		
 	
+	  $(document).ready(function(){
+			$('#profileimage').change(function(){
+				ShowImageProducts(this);
+			});
+			
+				
+		});
+		function ShowImageProducts(fileInput){
+			file = fileInput.files[0];
+			reader = new FileReader();
+			reader.onload = function(e){
+				$('#show_image_profile').attr('src',e.target.result);
+			};
+			reader.readAsDataURL(file);
+			
+		};
+	</script>
+
 </body>
 </html>
